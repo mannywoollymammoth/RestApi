@@ -16,11 +16,3 @@ class CommandLineInterface:
                 input_path_list.append(input_path)
 
         return input_path_list
-
-        # data_model = dm.DataModel(input_path_list)
-        # print(data_model.records)
-
-
-# if __name__ == "__main__":
-#     cmd_line_interface = CommandLineInterface()
-#     cmd_line_interface.prompt()
