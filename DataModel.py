@@ -16,7 +16,6 @@ class DataModel:
         )
         return data_frame
 
-    # TODO: figure out how to sort this shit
     def sort_by_gender(self):
         gender_records = self.records.sort_values(by=['Gender', 'LastName'])
         return gender_records
@@ -33,3 +32,7 @@ class DataModel:
     def sort_by_name(self):
         name_records = self.records.sort_values(by=['LastName'])
         return name_records
+
+    # TODO: finish this function
+    def add_line_to_record(self, line):
+        pass

@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from CommandLineInterface import CommandLineInterface as CLI
 import DataModel as dm
+import re
 
 app = Flask(__name__)
 
@@ -36,9 +37,13 @@ def add_record():
     # balance = request.json['balance']
     # data = {'name': name, 'balance': balance}
     # accounts.append(data)
-    print(request.get_data())
+
+    line = request.get_data()
+    line = line.decode("utf-8")
+    line = re.compile('[,| ]+').split(line)
+    print(line)
+    # print(request.get_data())
     return request.get_data()
-    # return jsonify(data)
 
 
 if __name__ == '__main__':
