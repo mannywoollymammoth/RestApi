@@ -1,7 +1,9 @@
-import DataModel as dm
+# this class is responsible for all the user interaction
+# will return a list of files for the data model to parse through
 
 
 class CommandLineInterface:
+    # TODO: Verify whether the files that are being entered are valid
     # Program will start here prompting user for input until they enter q to quit
     def prompt(self):
         input_path = ""

@@ -1,13 +1,13 @@
+# This file is in charge of defining the APIs and returning appropriate responses
+# It is also the main running point of the program and the commandline is called from here
 from flask import Flask, jsonify, request
 from CommandLineInterface import CommandLineInterface as CLI
 import DataModel as dm
-import re
+
 
 app = Flask(__name__)
 
 
-# will execute when a GET request is made
-# we can specify the different type of CRUD stuff from here
 @app.route("/records", methods=["GET"])
 def get_records():
     return data_model.records.to_json(orient='records', force_ascii=False)
@@ -33,21 +33,14 @@ def get_name_records():
 
 @app.route("/records", methods=["POST"])
 def add_record():
-    # name = request.json['name']
-    # balance = request.json['balance']
-    # data = {'name': name, 'balance': balance}
-    # accounts.append(data)
-
     line = request.get_data()
-    line = line.decode("utf-8")
-    line = re.compile('[,| ]+').split(line)
-    print(line)
-    # print(request.get_data())
-    return request.get_data()
+    if data_model.add_line_to_record(line):
+        return data_model.records.to_json(orient='records', force_ascii=False)
+    else:
+        return "Invalid Format"
 
 
 if __name__ == '__main__':
-    # TODO: from here call fucntions to read the files and stuff
     input_path_list = CLI().prompt()
     data_model = dm.DataModel(input_path_list)
     print(data_model.records)

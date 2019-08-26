@@ -1,4 +1,6 @@
 import pandas as pd
+import copy
+import re
 
 
 class DataModel:
@@ -8,7 +10,6 @@ class DataModel:
         self.records = self.read_files_and_merge(input_path_list)
 
     # TODO: add error checking to make sure that the files are only in the
-    # 3 acceptable formats
     def read_files_and_merge(self, input_path_list):
         data_frame = pd.concat(
             [pd.read_csv(input_path, sep='[,| ]+', engine='python')
@@ -21,7 +22,7 @@ class DataModel:
         return gender_records
 
     def sort_by_birthdate(self):
-        bday_records = self.records
+        bday_records = copy.deepcopy(self.records)
         bday_records['DateOfBirth'] = pd.to_datetime(
             bday_records['DateOfBirth'])
         bday_records = bday_records.sort_values(by=['DateOfBirth'])
@@ -33,6 +34,20 @@ class DataModel:
         name_records = self.records.sort_values(by=['LastName'])
         return name_records
 
-    # TODO: finish this function
     def add_line_to_record(self, line):
-        pass
+        line = line.decode("utf-8")
+        line = re.compile('[,| ]+').split(line)
+        if len(line) == 5:
+            last_name = line[0]
+            first_name = line[1]
+            gender = line[2]
+            favorite_color = line[3]
+            date_of_birth = line[4]
+            record = {'LastName': last_name, 'FirstName': first_name, 'Gender': gender,
+                      'FavoriteColor': favorite_color, 'DateOfBirth': date_of_birth}
+            self.records = self.records.append(record, ignore_index=True)
+
+            print(self.records)
+            return True
+        else:
+            return False
