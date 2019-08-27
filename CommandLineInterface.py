@@ -18,3 +18,6 @@ class CommandLineInterface:
                 input_path_list.append(input_path)
 
         return input_path_list
+
+    def check_if_files_are_valid():
+        pass
