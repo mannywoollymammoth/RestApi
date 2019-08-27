@@ -40,7 +40,21 @@ class TestDataModel(unittest.TestCase):
                                    ])
 
         self.gender_data_frame = pd.DataFrame(
-            gender_data, columns=birthdate_data.keys())
+            gender_data, columns=gender_data.keys())
+
+        name_data = OrderedDict([("LastName", ["Flores", "Fonseca", "Lomeli",  "Martinez"]),
+                                 ("FirstName", [
+                                     "Jenipher", "Adrian", "Fernando",  "Emmanuel"]),
+                                 ("Gender", [
+                                     "Female", "Male", "Male",  "Male"]),
+                                 ("FavoriteColor", [
+                                     "Black", "Black", "Red",  "Teal"]),
+                                 ("DateOfBirth", [
+                                     "11/10/1994", "11/10/1980", "06/26/1993",  "06/26/1996"])
+                                 ])
+
+        self.name_data_frame = pd.DataFrame(
+            name_data, columns=name_data.keys())
 
         self.data_frame = pd.DataFrame(self.data, columns=[
                                        'LastName', 'FirstName', 'Gender', 'FavoriteColor', 'DateOfBirth'])
@@ -48,7 +62,6 @@ class TestDataModel(unittest.TestCase):
         self.data_model_object = DataModel(self.input_path_list)
 
     # TESTS
-
     def test_read_files_and_merge(self):
         data_model_object_local = DataModel(self.input_path_list)
         assert_frame_equal(data_model_object_local.records, self.data_frame)
@@ -60,6 +73,10 @@ class TestDataModel(unittest.TestCase):
     def test_sort_by_gender(self):
         gender_sort = self.data_model_object.sort_by_gender()
         assert_frame_equal(gender_sort, self.gender_data_frame)
+
+    def test_sort_by_name(self):
+        name_sort = self.data_model_object.sort_by_name()
+        assert_frame_equal(name_sort, self.name_data_frame)
 
 
 if __name__ == '__main__':
