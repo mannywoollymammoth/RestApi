@@ -28,6 +28,22 @@ class TestCommandLineInterface(unittest.TestCase):
             result = CommandLineInterface().prompt()
         self.assertEqual(result, expected_output)
 
+    def test_if_valid_file(self):
+        user_input = ['something.csv', 'q']
+        expected_output = []
+
+        with patch('builtins.input', side_effect=user_input):
+            result = CommandLineInterface().prompt()
+        self.assertEqual(result, expected_output)
+
+    def test_if_valid_file2(self):
+        user_input = ['something.csv', 'data1.csv', 'q']
+        expected_output = ['data1.csv']
+
+        with patch('builtins.input', side_effect=user_input):
+            result = CommandLineInterface().prompt()
+        self.assertEqual(result, expected_output)
+
 
 if __name__ == '__main__':
     unittest.main()

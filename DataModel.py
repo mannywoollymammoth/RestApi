@@ -25,22 +25,21 @@ class DataModel:
     def sort_by_gender(self):
         gender_records = copy.deepcopy(self.records)
         gender_records = gender_records.sort_values(by=['Gender', 'LastName'])
-        return gender_records
+        return gender_records.reset_index(drop=True)
 
     def sort_by_birthdate(self):
         bday_records = copy.deepcopy(self.records)
         bday_records['DateOfBirth'] = pd.to_datetime(
             bday_records['DateOfBirth'])
         bday_records = bday_records.sort_values(by=['DateOfBirth'])
-        bday_records['DateOfBirth'] = bday_records['Date
-                                                   OfBirth'].dt.strftime(
+        bday_records['DateOfBirth'] = bday_records['DateOfBirth'].dt.strftime(
             '%m/%d/%y')
-        return bday_records
+        return bday_records.reset_index(drop=True)
 
     def sort_by_name(self):
         name_records = copy.deepcopy(self.records)
         name_records = name_records.sort_values(by=['LastName'])
-        return name_records
+        return name_records.reset_index(drop=True)
 
     # this function will get the line from the user and then
     # verifying that it has enough fields and then appending it to
