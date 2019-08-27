@@ -44,7 +44,6 @@ class DataModel:
     # this function will get the line from the user and then
     # verifying that it has enough fields and then appending it to
     # the data data frame
-    # TODO: make sure that we check that the date field is in correct format
     def add_line_to_record(self, line):
         line = line.decode("utf-8")
         line = re.compile('[,| ]+').split(line)
